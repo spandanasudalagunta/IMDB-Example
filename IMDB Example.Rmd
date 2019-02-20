@@ -174,6 +174,7 @@ results1
 
 ## Regularization
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 ```{r}
 model2 <- keras_model_sequential() %>% 
@@ -250,8 +251,53 @@ str(history)
 val_acc1 <- mean(history$metrics$val_acc)
 val_acc1
 ```
+=======
+>>>>>>> 2271df0420c1c9031711ceeede611aa76b902b35
+
+```{r}
+model2 <- keras_model_sequential() %>% 
+  layer_dense(units = 16, kernel_regularizer = regularizer_l2(0.001), activation = "relu", input_shape = c(10000)) %>% 
+  layer_dense(units = 16, kernel_regularizer = regularizer_l2(0.001), activation = "relu") %>% 
+  layer_dense(units = 1, activation = "sigmoid")
+```
+
+```{r}
+model2 %>% compile(
+  optimizer = optimizer_rmsprop(lr = 0.001),
+  loss = loss_binary_crossentropy,
+  metrics = metric_binary_accuracy
+) 
+```
+
+```{r}
+model2 %>% compile(
+  optimizer = "rmsprop",
+  loss = "binary_crossentropy",
+  metrics = c("accuracy")
+)
+ history <- model2 %>% fit(
+  partial_x_train,
+  partial_y_train,
+  epochs = 15,
+  batch_size = 512,
+  validation_data = list(x_val, y_val))
+```
+
+```{r}
+str(history)
+```
 
 
+```{r}
+val_acc1 <- mean(history$metrics$val_acc)
+val_acc1
+```
+
+
+
+```{r}
+plot(history)
+```
 
 ```{r}
 >>>>>>> 2271df0420c1c9031711ceeede611aa76b902b35
