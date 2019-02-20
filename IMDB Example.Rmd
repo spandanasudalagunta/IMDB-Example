@@ -118,22 +118,17 @@ results
 
 ```{r}
 model1 <- keras_model_sequential() %>% 
-  layer_dense(units = 16, activation = "relu", input_shape = c(10000)) %>% 
-  layer_dropout(rate = 0.6) %>%
-  #layer_dense(units = 16, activation = "relu") %>%  
- # layer_dropout(rate = 0.6) %>%
-  layer_dense(units = 16, activation = "relu") %>% 
-  layer_dropout(rate = 0.4) %>%
+  layer_dense(units = 32, activation = "softmax", input_shape = c(10000)) %>% 
+  layer_dropout(rate = 0.06) %>%
+  layer_dense(units = 16, activation = "softmax") %>%  
+  layer_dropout(rate = 0.05) %>%
+  layer_dense(units = 16, activation = "softmax") %>% 
+  layer_dropout(rate = 0.04) %>%
   layer_dense(units = 1, activation = "sigmoid")
 ```
 
-```{r}
-model1 %>% compile(
-  optimizer = optimizer_rmsprop(lr = 0.001),
-  loss = loss_binary_crossentropy,
-  metrics = metric_binary_accuracy
-) 
-```
+
+
 
 ```{r}
 model1 %>% compile(
@@ -181,18 +176,11 @@ results1
 
 ```{r}
 model2 <- keras_model_sequential() %>% 
-  layer_dense(units = 16, kernel_regularizer = regularizer_l2(0.001), activation = "relu", input_shape = c(10000)) %>% 
-  layer_dense(units = 16, kernel_regularizer = regularizer_l2(0.001), activation = "relu") %>% 
+  layer_dense(units = 16, kernel_regularizer = regularizer_l2(0.01), activation = "relu", input_shape = c(10000)) %>% 
+  layer_dense(units = 16, kernel_regularizer = regularizer_l2(0.01), activation = "relu") %>% 
   layer_dense(units = 1, activation = "sigmoid")
 ```
 
-```{r}
-model2 %>% compile(
-  optimizer = optimizer_rmsprop(lr = 0.001),
-  loss = loss_binary_crossentropy,
-  metrics = metric_binary_accuracy
-) 
-```
 
 ```{r}
 model2 %>% compile(
